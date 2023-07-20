@@ -1,39 +1,36 @@
 package com.example.myapplication
+interface Operation {
+    fun calculate(num_1: Double, num_2: Double): Double
+}
 
 
 fun main() {
     println("************계산기************")
     println("첫 번째 숫자를 입력하세요:")
-    val num_1 = readLine()?.toDoubleOrNull()
+    val num1 = readLine()?.toDoubleOrNull()
     println("두 번째 숫자를 입력하세요:")
-    val num_2 = readLine()?.toDoubleOrNull()
-    val result:Double
+    val num2 = readLine()?.toDoubleOrNull()
     println("연산기호를 입력해주세요~ (예시: +, -, *, /, %)")
     val operator = readLine()
 
-    if (num_1 != null && num_2 != null && operator != null) {
-        if (operator == "+") {
-            result = num_1 + num_2
-            println("${num_1}과 ${num_2}의 합은 ${result}입니다.")
+    if (num1 != null && num2 != null && operator != null) {
+        val operation: Operation = if (operator == "+") {
+            Add()
         } else if (operator == "-") {
-            result = num_1 - num_2
-            println("${num_1}과 ${num_2}의 차는 ${result}입니다.")
+            Sub()
         } else if (operator == "*") {
-            result = num_1 * num_2
-            println("${num_1}과 ${num_2}의 곱은 ${result}입니다.")
+            Mul()
         } else if (operator == "/") {
-            if (num_2 != 0.0) {
-                result = num_1 / num_2
-                println("${num_1}과 ${num_2}의 나눗셈은 ${result}입니다.")
-            } else {
-                println("0으로 나눌 수 없습니다.")
-            }
+            Div()
         } else if (operator == "%") {
-            result = num_1 % num_2
-            println("${num_1}을 ${num_2}로 나눈 나머지는 ${result}입니다.")
+            Div() // 나머지 연산은 Div 클래스로 처리합니다.
         } else {
-            println("올바르지 않은 입력입니다. 다시 시도해주세요.")
+            throw IllegalArgumentException("올바르지 않은 입력입니다. 다시 시도해주세요.")
         }
+
+        val calculator = Calculator(operation)
+        val result = calculator.calculate(num1, num2)
+        println("결과: ${result}")
     } else {
         println("유효하지 않은 숫자 또는 연산자입니다.")
     }
