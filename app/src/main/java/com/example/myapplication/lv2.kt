@@ -22,9 +22,7 @@ fun main() {
             Mul()
         } else if (operator == "/") {
             Div()
-        } else if (operator == "%") {
-            Div() // 나머지 연산은 Div 클래스로 처리합니다.
-        } else {
+       else {
             throw IllegalArgumentException("올바르지 않은 입력입니다. 다시 시도해주세요.")
         }
 
